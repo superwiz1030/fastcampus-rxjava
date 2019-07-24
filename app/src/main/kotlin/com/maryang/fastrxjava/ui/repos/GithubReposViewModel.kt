@@ -53,7 +53,15 @@ class GithubReposViewModel : BaseViewModel() {
                                 .onErrorComplete()
                         }
                     ).subscribe {
-                        emitter.onSuccess(it)
+                        Completable.merge(
+                            it.map { repo ->
+                                repository.getFollowing(repo.owner.userName)
+                                    .doOnComplete { repo.isFollow = true }
+                                    .onErrorComplete()
+                            }
+                        ).subscribe {
+                            emitter.onSuccess(it)
+                        }
                     }
                 }, {})
         }

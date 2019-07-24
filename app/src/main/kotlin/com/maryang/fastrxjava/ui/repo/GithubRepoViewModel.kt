@@ -13,4 +13,11 @@ class GithubRepoViewModel {
         else
             repository.star(repo.owner.userName, repo.name))
             .observeOn(AndroidSchedulers.mainThread())
+
+    fun onClickFollow(repo: GithubRepo) =
+        (if (repo.isFollow)
+            repository.unfollow(repo.owner.userName)
+        else
+            repository.follow(repo.owner.userName))
+            .observeOn(AndroidSchedulers.mainThread())
 }

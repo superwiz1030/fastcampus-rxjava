@@ -15,6 +15,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+            android:id="@+id/followingImage"
+            android:layout_width="@dimen/owner_avatar_width"
+            android:layout_height="@dimen/owner_avatar_width"
+            android:layout_marginStart="@dimen/spacing_500"
+            app:layout_constraintStart_toEndOf="@id/ownerImage"
+            app:layout_constraintTop_toTopOf="@id/ownerImage"
+            app:layout_constraintBottom_toBottomOf="@id/ownerImage"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            />
+
     <TextView
         android:id="@+id/ownerName"
         android:layout_width="0dp"

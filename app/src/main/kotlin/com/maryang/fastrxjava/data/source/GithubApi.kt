@@ -12,6 +12,21 @@ interface GithubApi {
         @Query("q") search: String
     ): Single<JsonElement>
 
+    @GET("/user/following/{username}")
+    fun getFollowing(
+        @Path("username") username: String
+    ): Completable
+
+    @PUT("/user/following/{username}")
+    fun follow(
+        @Path("username") username: String
+    ): Completable
+
+    @DELETE("/user/following/{username}")
+    fun unfollow(
+        @Path("username") username: String
+    ): Completable
+
     @GET("user/starred/{owner}/{repo}")
     fun checkStar(
         @Path("owner") owner: String,

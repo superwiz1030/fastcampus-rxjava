@@ -76,6 +76,7 @@ class GithubReposActivity : BaseViewModelActivity() {
                     it.id == repo.id
                 }?.apply {
                     star = star.not()
+                    isFollow = isFollow.not()
                 }
                 adapter.notifyDataSetChanged()
             }

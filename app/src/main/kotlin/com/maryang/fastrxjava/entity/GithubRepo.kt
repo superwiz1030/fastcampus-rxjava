@@ -35,7 +35,9 @@ data class GithubRepo(
     @SerializedName("pushed_at")
     val pushedAt: Date,
     @Expose
-    var star: Boolean = false
+    var star: Boolean = false,
+    @Expose
+    var isFollow: Boolean = false
 ) : Identifier, Parcelable {
     @Parcelize
     data class GithubRepoUser(

@@ -21,6 +21,10 @@ class GithubRepository {
             }
             .subscribeOn(Schedulers.io())
 
+    fun getFollowing(username: String): Completable =
+        api.getFollowing(username)
+            .subscribeOn(Schedulers.io())
+
     fun checkStar(owner: String, repo: String): Completable =
         api.checkStar(owner, repo)
             .subscribeOn(Schedulers.io())
@@ -31,5 +35,13 @@ class GithubRepository {
 
     fun unstar(owner: String, repo: String): Completable =
         api.unstar(owner, repo)
+            .subscribeOn(Schedulers.io())
+
+    fun follow(username: String): Completable =
+        api.follow(username)
+            .subscribeOn(Schedulers.io())
+
+    fun unfollow(username: String): Completable =
+        api.unfollow(username)
             .subscribeOn(Schedulers.io())
 }

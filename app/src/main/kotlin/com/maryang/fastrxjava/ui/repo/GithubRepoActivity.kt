@@ -2,6 +2,7 @@ package com.maryang.fastrxjava.ui.repo
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.maryang.fastrxjava.R
 import com.maryang.fastrxjava.base.BaseActivity
@@ -57,12 +58,36 @@ class GithubRepoActivity : BaseActivity() {
         watcherCount.text = repo.watchersCount.toString()
         forksCount.text = repo.forksCount.toString()
         showStar(repo.star)
+        showFollowingImage(repo.isFollow)
     }
 
     private fun setOnClickListener() {
         star.onClick { clickStar() }
         ownerImage.onClick { clickOwner() }
         ownerName.onClick { clickOwner() }
+        followingImage.onClick { clickFollow() }
+    }
+
+    private fun clickFollow() {
+        repo.isFollow.not().let {
+            showFollowingImage(it)
+        }
+
+        viewModel.onClickFollow(repo)
+            .subscribe(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    repo.apply {
+                        isFollow = !isFollow
+                    }.let {
+                        showFollowingImage(it.isFollow)
+                        DataObserver.post(it)
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    showFollowingImage(repo.isFollow)
+                }
+            })
     }
 
     private fun clickStar() {
@@ -97,5 +122,10 @@ class GithubRepoActivity : BaseActivity() {
     private fun showStar(show: Boolean) {
         star.imageResource =
             if (show) R.drawable.baseline_star_24 else R.drawable.baseline_star_border_24
+    }
+
+    private fun showFollowingImage(show: Boolean) {
+        followingImage.imageResource =
+            if (show) R.drawable.ic_favorite_black_24dp else R.drawable.ic_favorite_border_black_24dp
     }
 }
